@@ -1,6 +1,5 @@
 - 👋 Hi, I’m @joselazovargas
-- 👀 I’m interested in Web Dev, Hacking, DIY, Games and Yoga.
-- 🌱 I’m currently learning, yeap.
+- 👀 I’m interested in Web Dev.
 - 💞️ I’m looking to collaborate on automation projects.
 
 <!---
