@@ -2,37 +2,56 @@
     import { onMount } from "svelte";
 
     let panel: HTMLDivElement;
-    let flipped = false;
-    let hovering = false;
+    let stage = 0; // 0 = waiting, 1 = typing, 2 = done
+    let displayedHtml = "";
+    let cursorVisible = true;
 
-    function updateTransform(xDeg = 0, yDeg = 0) {
-        const flipAngle = flipped ? 180 : 0;
-        const scale = hovering ? 1.3 : 1;
-        panel.style.transform =
-            `scale(${scale}) ` +
-            `rotateX(${xDeg}deg) ` +
-            `rotateY(${yDeg + flipAngle}deg)`;
-    }
+    // Syntax‐colored tokens for your contact block
+    const tokens = [
+    `<span class="text-vscode-purple">const</span>`,
+    ` `,
+    `<span class="text-vscode-cyan">aboutMe</span>`,
+    ` `,
+    `= `,
+    `{`,
+    `\n  `,
+    `<span class="text-vscode-red">name</span>`,
+    `: `,
+    `<span class="text-vscode-green">'Jose Lazo'</span>`,
+    `,`,
+    `\n  `,
+    `<span class="text-vscode-red">github</span>`,
+    `: `,
+    `<a href="https://github.com/joselazovargas" target="_blank" class="text-vscode-green underline">'@joselazovargas'</a>`,
+    `,`,
+    `\n  `,
+    `<span class="text-vscode-red">linkedin</span>`,
+    `: `,
+    `<a href="https://www.linkedin.com/in/jose-lazo-ict/" target="_blank" class="text-vscode-green underline">'@jose-lazo-ict'</a>`,
+    `\n`,
+    `}`
+  ];
 
-    function handleClick() {
-        flipped = !flipped;
-        updateTransform(0, 0);
-    }
-
+    // Start typewriter on first safe keypress
     function handleKeydown(e: KeyboardEvent) {
-        // ignore pure modifiers
+        if (stage !== 0) return;
         if (["Shift", "Control", "Alt", "Meta"].includes(e.key)) return;
-        flipped = !flipped;
-        updateTransform(0, 0);
+        stage = 1;
+        let i = 0;
+        const interval = setInterval(() => {
+            displayedHtml += tokens[i++];
+            if (i === tokens.length) {
+                clearInterval(interval);
+                stage = 2;
+                setInterval(() => (cursorVisible = !cursorVisible), 500);
+            }
+        }, 100);
     }
 
     onMount(() => {
         if (!panel) return;
-
-        panel.addEventListener("click", handleClick);
         window.addEventListener("keydown", handleKeydown);
         return () => {
-            panel.removeEventListener("click", handleClick);
             window.removeEventListener("keydown", handleKeydown);
         };
     });
@@ -41,69 +60,41 @@
 <div class="flex items-center justify-center w-full h-[100svh] bg-gray-900 p-5">
     <!-- mat + perspective container -->
     <div
-        class="relative w-[422px] h-[302px] overflow-hidden rounded-lg bg-gray-800"
+        class="relative w-[422px] h-[302px] overflow-hidden rounded-lg "
         style="perspective:600px;"
     >
-        <!-- rotating/flipping card -->
+        <!-- 3D‐tilting card -->
         <div
             bind:this={panel}
-            class="card absolute inset-0 cursor-pointer
+            class="card absolute inset-0 cursor-default
              transition-transform duration-500 ease-out will-change-transform"
             style="transform-style: preserve-3d;
-             --light-x:50%;
-             --light-y:50%;"
+             --light-x:50%; --light-y:50%;"
         >
-            <!-- spotlight -->
+            <!-- moving spotlight -->
             <div class="light"></div>
 
-            <!-- FRONT FACE: terminal stub -->
+            <!-- single “face” with terminal/typewriter -->
             <div
-                class="face front absolute inset-0
-               bg-black/20 backdrop-blur-md border border-white/10
-               rounded-md shadow-xl p-4"
+                class="face absolute inset-0
+                backdrop-blur-md 
+               rounded-md shadow-xl p-4 font-mono text-white
+               overflow-auto whitespace-pre-wrap sm:text-sm"
             >
-                <div class="flex h-full items-center justify-center">
-                    <span class="text-gray-400 text-sm font-mono mt-2">
-                        Press any key to continue...
-                    </span>
-                    <span class="cursor text-gray-400 text-xl font-mono">_</span>
-                </div>
-            </div>
-
-            <!-- BACK FACE -->
-            <div
-                class="face back absolute inset-0
-               bg-black/20 backdrop-blur-md border border-white/10
-               rounded-md shadow-xl p-4 font-mono text-white flex items-center justify-center"
-                style="transform:rotateY(180deg);"
-            >
-                <div class="">
-                    <p>
-                        <span class="text-vscode-purple">const</span> aboutMe
-                        <span class="text-vscode-cyan"> = </span>{"{"}
-                    </p>
-                    <p class="pl-3">
-                        <span class="text-vscode-red">name</span><span
-                            class="text-vscode-cyan">:</span
+                {#if stage === 0}
+                    <div class="flex h-full ">
+                        <span class="text-gray-400 text-sm"
+                            >Press any key to continue...</span
                         >
-                        <span class="text-vscode-green">'Jose Lazo'</span>,
-                    </p>
-                    <p class="pl-3">
-                        <span class="text-vscode-red">github</span><span
-                            class="text-vscode-cyan">:</span
-                        >
-                        <a href="https://github.com/joselazovargas" target="_blank"><span class="text-vscode-green">'https://github.com/joselazovargas'</span></a>,
-                    </p>
-                    <!-- <p class="pl-3">
-                        <span class="text-vscode-red">email</span><span
-                            class="text-vscode-cyan">:</span
-                        >
-                        <span class="text-vscode-green"
-                            >'jose.lazo.vargas@gmail.com'</span
-                        >,
-                    </p> -->
-                    <p>{"}"}</p>
-                </div>
+                        <span class="cursor text-gray-400 text-lg ml-2">_</span>
+                    </div>
+                {:else}
+                    <div>
+                        {@html displayedHtml}{stage < 2 && cursorVisible
+                            ? "_"
+                            : ""}
+                    </div>
+                {/if}
             </div>
         </div>
     </div>
@@ -133,11 +124,9 @@
         opacity: 0;
         transition: opacity 0.3s ease-out;
     }
-    .card:hover .light {
+    /* .card:hover .light {
         opacity: 0.8;
-    }
-
-    /* blinking cursor */
+    } */
     @keyframes blink {
         0%,
         50% {
