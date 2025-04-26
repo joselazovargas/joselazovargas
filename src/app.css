@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+@theme {
+    /* Sunset gradient */
+    --color-sunset-dark: #ff9800;
+    --color-sunset-light: #ffa726;
+
+    /* Card background */
+    --color-code-bg:       #1c1c1c;
+
+    /* VSCode‐style syntax colors */
+    --color-vscode-blue:   #29b6f6;
+    --color-vscode-green:  #9ccc65;
+    --color-vscode-purple: #ba68c8;
+    --color-vscode-cyan:   #4dd0e1;
+    --color-vscode-red:    #ef5350;
+}
