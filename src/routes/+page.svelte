@@ -8,29 +8,34 @@
 
     // Syntax‐colored tokens for your contact block
     const tokens = [
-    `<span class="text-vscode-purple">const</span>`,
-    ` `,
-    `<span class="text-vscode-cyan">aboutMe</span>`,
-    ` `,
-    `= `,
-    `{`,
-    `\n  `,
-    `<span class="text-vscode-red">name</span>`,
-    `: `,
-    `<span class="text-vscode-green">'Jose Lazo'</span>`,
-    `,`,
-    `\n  `,
-    `<span class="text-vscode-red">github</span>`,
-    `: `,
-    `<a href="https://github.com/joselazovargas" target="_blank" class="text-vscode-green underline">'@joselazovargas'</a>`,
-    `,`,
-    `\n  `,
-    `<span class="text-vscode-red">linkedin</span>`,
-    `: `,
-    `<a href="https://www.linkedin.com/in/jose-lazo-ict/" target="_blank" class="text-vscode-green underline">'@jose-lazo-ict'</a>`,
-    `\n`,
-    `}`
-  ];
+        `<span class="text-vscode-purple">const</span>`,
+        ` `,
+        `<span class="text-vscode-cyan">aboutMe</span>`,
+        ` `,
+        `= `,
+        `{`,
+        `\n  `,
+        `<span class="text-vscode-red">name</span>`,
+        `: `,
+        `<span class="text-vscode-green">'Jose Lazo'</span>`,
+        `,`,
+        `\n  `,
+        `<span class="text-vscode-red">job</span>`,
+        `: `,
+        `<a href="https://black6.com" target="_blank" class="text-vscode-green no-underline">'BLACK6'</a>`,
+        `,`,
+        `\n  `,
+        `<span class="text-vscode-red">github</span>`,
+        `: `,
+        `<a href="https://github.com/joselazovargas" target="_blank" class="text-vscode-green no-underline">'@joselazovargas'</a>`,
+        `,`,
+        `\n  `,
+        `<span class="text-vscode-red">linkedin</span>`,
+        `: `,
+        `<a href="https://www.linkedin.com/in/jose-lazo-ict/" target="_blank" class="text-vscode-green no-underline">'@jose-lazo-ict'</a>`,
+        `\n`,
+        `}`,
+    ];
 
     // Start typewriter on first safe keypress
     function handleKeydown(e: KeyboardEvent) {
@@ -60,7 +65,7 @@
 <div class="flex items-center justify-center w-full h-[100svh] bg-gray-900 p-5">
     <!-- mat + perspective container -->
     <div
-        class="relative w-[422px] h-[302px] overflow-hidden rounded-lg "
+        class="relative w-[422px] h-[302px] overflow-hidden rounded-lg"
         style="perspective:600px;"
     >
         <!-- 3D‐tilting card -->
@@ -77,13 +82,13 @@
             <!-- single “face” with terminal/typewriter -->
             <div
                 class="face absolute inset-0
-                backdrop-blur-md 
+                backdrop-blur-md
                rounded-md shadow-xl p-4 font-mono text-white
-               overflow-auto whitespace-pre-wrap sm:text-sm"
+               overflow-auto whitespace-pre-wrap "
             >
                 {#if stage === 0}
-                    <div class="flex h-full ">
-                        <span class="text-gray-400 text-sm"
+                    <div class="flex h-full">
+                        <span class="text-gray-400 text-sm md:text-lg"
                             >Press any key to continue...</span
                         >
                         <span class="cursor text-gray-400 text-lg ml-2">_</span>
