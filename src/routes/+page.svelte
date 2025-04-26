@@ -53,11 +53,27 @@
         }, 100);
     }
 
+    function handleClick() {
+        if (stage !== 0) return;
+        stage = 1;
+        let i = 0;
+        const interval = setInterval(() => {
+            displayedHtml += tokens[i++];
+            if (i === tokens.length) {
+                clearInterval(interval);
+                stage = 2;
+                setInterval(() => (cursorVisible = !cursorVisible), 500);
+            }
+        }, 100);
+    }
+
     onMount(() => {
         if (!panel) return;
         window.addEventListener("keydown", handleKeydown);
+        panel.addEventListener("click",        handleClick);
         return () => {
             window.removeEventListener("keydown", handleKeydown);
+            panel.removeEventListener("click",        handleClick);
         };
     });
 </script>
