@@ -1,12 +1,59 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		%sveltekit.head%
+
+<head>
+	<meta charset="utf-8" />
+<!-- Favicon -->
+	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+<!-- Responsive & viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Primary SEO -->
+<title>Jose Lazo</title>
+<meta name="description"
+	content="Jose Lazo is a software developer specializing in Svelte, Electron, and Tailwind CSS—crafting modern web apps with a focus on usability and performance." />
+<meta name="keywords" content="Jose Lazo, software engineer, Svelte, Electron, Tailwind CSS, web development" />
+<meta name="author" content="Jose Lazo" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://joselazo.com" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:site_name" content="Jose Lazo" />
+<meta property="og:title" content="Jose Lazo" />
+<meta property="og:description"
+	content="Jose Lazo is a software developer specializing in Svelte, Electron, and Tailwind CSS—crafting modern web apps with a focus on usability and performance." />
+
+<meta property="og:url" content="https://joselazo.com" />
+<meta property="og:type" content="website" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@your_twitter_handle" />
+<meta name="twitter:title" content="Jose Lazo" />
+<meta name="twitter:description"
+	content="Jose Lazo is a software developer specializing in Svelte, Electron, and Tailwind CSS—crafting modern web apps with a focus on usability and performance." />
+<meta name="twitter:image" content="%sveltekit.assets%/og-image.png" />
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+    {
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"name": "Jose Lazo",
+		"url": "https://joselazo.com",
+		"sameAs": [
+			"https://github.com/joselazovargas",
+			"https://www.linkedin.com/in/jose-lazo-ict/"
+		],
+		"jobTitle": "Software developer"
+    }
+    </script>
+
+<!-- SvelteKit head injection -->
+	%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
+
+<body data-sveltekit-preload-data="hover">
+	<div style="display: contents">%sveltekit.body%</div>
+</body>
+
 </html>
