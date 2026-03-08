@@ -68,7 +68,6 @@
 		</div>
 		
 		{#if statsExpanded}
-			<CodeProperty name="coffee" value="infinity" />
 			<CodeProperty name="renderTime" value="{renderTime}ms" />
 			<CodeProperty name="captcha" value="{isVerified ? 'passed' : 'waiting...'}" isLast />
 			<div>{'};'}</div>
