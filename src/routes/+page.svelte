@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CardFace from '$lib/components/CardFace.svelte';
+	import { dev } from '$app/environment';
 
 	// Stage 0: waiting, 1: typing, 2: done
 	let stage = $state(0);
@@ -21,14 +22,14 @@
 	}
 
 	// Syntax-colored tokens for your contact block
-	// email is above readMore, myWork is hidden (WIP)
 	const tokens = [
 		`<span class="text-vscode-purple">const</span>`, ' ', `<span class="text-vscode-cyan">aboutMe</span>`, ' ', `= `, '{', '\n  ',
 		`<span class="text-vscode-red">name</span>`, ': ', `<span class="text-vscode-green">'Jose Lazo'</span>`, ',', '\n  ',
-		`<span class="text-vscode-red">github</span>`, ': ', `<a href="https://github.com/joselazovargas" target="_blank" class="text-vscode-green no-underline">'@joselazovargas'</a>`, ',', '\n  ',
-		`<span class="text-vscode-red">linkedin</span>`, ': ', `<a href="https://www.linkedin.com/in/jose-lazo-ict/" target="_blank" class="text-vscode-green no-underline">'@jose-lazo-ict'</a>`, ',', '\n  ',
+		`<span class="text-vscode-red">github</span>`, ': ', `<span class="text-vscode-green">'@joselazovargas'</span>`, ',', '\n  ',
+		`<span class="text-vscode-red">linkedin</span>`, ': ', `<span class="text-vscode-green">'@jose-lazo-ict'</span>`, ',', '\n  ',
 		`<span class="text-vscode-red">email</span>`, ': ', `<span class="text-vscode-green">'[hidden]'</span>`, ',', '\n  ',
-		`<span class="text-vscode-red">readMore</span>`, ': ', '{ ', `<span class="text-vscode-red">job</span>`, ': ', `<a href="https://black6.com" target="_blank" class="text-vscode-green no-underline">'BLACK6'</a>`, ' }', '\n',
+		...(dev ? [`<span class="text-vscode-red">myWork</span>`, ': ', `[]`, ',', '\n  '] : []),
+		`<span class="text-vscode-red">readMore</span>`, ': ', '{ ', `<span class="text-vscode-red">job</span>`, ': ', `<span class="text-vscode-green">'BLACK6'</span>`, ' }', '\n',
 		'};', '\n\n',
 		`<span class="text-vscode-purple">const</span>`, ' ', `<span class="text-vscode-cyan">statsForNerds</span>`, ' ', `= `, '{', ' ... ', '};'
 	];
@@ -53,7 +54,7 @@
 				clearInterval(interval);
 				stage = 2;
 			}
-		}, 60); // slightly faster
+		}, 60);
 
 		return () => {
 			clearInterval(interval);
@@ -66,7 +67,7 @@
 <svelte:window on:keydown={startTyping} />
 
 <div class="flex items-center justify-center w-full h-[100svh] bg-gray-900 p-5">
-	<div class="relative w-[422px] h-[302px] overflow-hidden rounded-lg" style="perspective:600px;">
+	<div class="relative w-[422px] h-[450px] overflow-hidden rounded-lg" style="perspective:600px;">
 		<div
 			onclick={startTyping}
 			onmousemove={handleMouseMove}
