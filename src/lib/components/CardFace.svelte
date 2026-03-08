@@ -16,16 +16,16 @@
 	let { stage, displayedHtml, isVerified, statsExpanded, emailValue, phoneValue, onExpandStats }: Props = $props();
 </script>
 
-<div class="face absolute inset-0 backdrop-blur-md rounded-md shadow-xl p-4 font-mono text-xl text-white overflow-auto">
+<div class="card-content w-full h-full min-h-[150px] flex flex-col justify-center">
 {#if stage === 0}
-	<div class="flex h-full items-center justify-center">
+	<div class="flex items-center justify-center py-8">
 		<Syntax type="gray">Press any key to continue...</Syntax>
 		<span class="cursor text-gray-400 ml-2">_</span>
 	</div>
 {:else if stage === 1}
-	<div class="whitespace-pre-wrap">{@html displayedHtml}<span class="cursor text-white">_</span></div>
+	<div class="whitespace-pre-wrap py-2">{@html displayedHtml}<span class="cursor text-white">_</span></div>
 {:else}
-	<div class="flex flex-col">
+	<div class="flex flex-col py-2">
 		<div class="flex items-center gap-2">
 			<Syntax type="purple">const</Syntax> <Syntax type="cyan">aboutMe</Syntax> = {'{' }
 		</div>
@@ -52,7 +52,7 @@
 		<div class="flex items-center gap-2">
 			<Syntax type="purple">const</Syntax> <Syntax type="cyan">statsForNerds</Syntax> = {'{ '}
 			{#if !statsExpanded}
-				<button onclick={onExpandStats} class="text-gray-500 cursor-pointer hover:text-white transition-colors italic">... /* click to expand */</button>
+				<button onclick={onExpandStats} class="text-gray-500 cursor-pointer hover:text-white transition-colors italic">/* ... */</button>
 				{' };'}
 			{/if}
 		</div>
@@ -72,10 +72,6 @@
 </div>
 
 <style>
-	.face {
-		backface-visibility: hidden;
-		-webkit-backface-visibility: hidden;
-	}
 	@keyframes blink {
 		0%, 50% { opacity: 1; }
 		50.01%, 100% { opacity: 0; }

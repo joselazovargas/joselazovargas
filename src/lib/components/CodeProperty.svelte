@@ -23,7 +23,7 @@
 		isVerified = false, 
 		actualSecret = '',
 		isLast = false,
-		indent = 2,
+		indent = 1,
 		canCopy = false
 	}: Props = $props();
 

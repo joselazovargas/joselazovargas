@@ -68,14 +68,13 @@
 
 <svelte:window on:keydown={startTyping} />
 
-<div class="flex items-center justify-center w-full h-[100svh] bg-gray-900 p-5">
-	<div class="relative w-[622px] h-[602px] overflow-hidden rounded-lg" style="perspective:600px;">
-		<div
-			onclick={startTyping}
-			onmousemove={handleMouseMove}
-			class="card absolute inset-0 cursor-default transition-transform duration-500 ease-out will-change-transform"
-		>
-			<div class="light"></div>
+<div class="flex items-center justify-center min-h-[100svh] bg-gray-900 p-6">
+	<div
+		onclick={startTyping}
+		onmousemove={handleMouseMove}
+		class="relative w-full max-w-xl transition-all duration-500 ease-out"
+	>
+		<div class="backdrop-blur-md bg-white/5 border border-white/10 rounded-xl shadow-2xl p-6 font-mono text-lg text-white overflow-hidden">
 			<CardFace 
 				{stage} 
 				{displayedHtml} 
@@ -88,25 +87,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	.card {
-		transform-style: preserve-3d;
-		-webkit-transform-style: preserve-3d;
-	}
-	.light {
-		position: absolute;
-		width: 200%;
-		height: 200%;
-		top: -50%;
-		left: -50%;
-		pointer-events: none;
-		background: radial-gradient(
-			circle at var(--light-x) var(--light-y),
-			rgba(255, 255, 255, 0.15),
-			transparent 80%
-		);
-		opacity: 0;
-		transition: opacity 0.3s ease-out;
-	}
-</style>
