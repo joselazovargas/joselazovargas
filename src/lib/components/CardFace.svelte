@@ -10,10 +10,20 @@
 		statsExpanded: boolean;
 		emailValue: string;
 		phoneValue: string;
+		renderTime: number;
 		onExpandStats: () => void;
 	}
 
-	let { stage, displayedHtml, isVerified, statsExpanded, emailValue, phoneValue, onExpandStats }: Props = $props();
+	let { 
+		stage, 
+		displayedHtml, 
+		isVerified, 
+		statsExpanded, 
+		emailValue, 
+		phoneValue, 
+		renderTime, 
+		onExpandStats
+	}: Props = $props();
 </script>
 
 <div class="card-content w-full h-full min-h-[150px] flex flex-col justify-center">
@@ -33,8 +43,8 @@
 		<CodeProperty name="name" value="Jose Lazo" />
 		<CodeProperty name="github" value="@joselazovargas" isLink url="https://github.com/joselazovargas" />
 		<CodeProperty name="linkedin" value="@jose-lazo-ict" isLink url="https://www.linkedin.com/in/jose-lazo-ict/" />
-		<CodeProperty name="email" value="[hidden]" isSecret {isVerified} actualSecret={emailValue} canCopy />
-		<CodeProperty name="phone" value="[hidden]" isSecret {isVerified} actualSecret={phoneValue} canCopy />
+		<CodeProperty name="email" value={emailValue} canCopy />
+		<CodeProperty name="phone" value={phoneValue} canCopy />
 		
 		{#if dev}
 			<CodeProperty name="myWork" value="[]" />
@@ -52,15 +62,14 @@
 		<div class="flex items-center gap-2">
 			<Syntax type="purple">const</Syntax> <Syntax type="cyan">statsForNerds</Syntax> = {'{ '}
 			{#if !statsExpanded}
-				<button onclick={onExpandStats} class="text-gray-500 cursor-pointer hover:text-white transition-colors italic">/* ... */</button>
+				<button onclick={onExpandStats} class="text-gray-500 cursor-pointer hover:text-white transition-colors italic">... /* click to expand */</button>
 				{' };'}
 			{/if}
 		</div>
 		
 		{#if statsExpanded}
-			<CodeProperty name="coffee" value="infinity" />
-			<CodeProperty name="os" value="win32" />
-			<CodeProperty name="status" value="building" isLast />
+			<CodeProperty name="renderTime" value="{renderTime}ms" />
+			<CodeProperty name="captcha" value="{isVerified ? 'passed' : 'waiting...'}" isLast />
 			<div>{'};'}</div>
 		{/if}
 		

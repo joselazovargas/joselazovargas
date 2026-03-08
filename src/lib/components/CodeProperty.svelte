@@ -12,6 +12,7 @@
 		isLast?: boolean;
 		indent?: number;
 		canCopy?: boolean;
+		onReveal?: () => void;
 	}
 
 	let { 
@@ -24,14 +25,15 @@
 		actualSecret = '',
 		isLast = false,
 		indent = 1,
-		canCopy = false
+		canCopy = false,
+		onReveal
 	}: Props = $props();
 
 	let copied = $state(false);
 
 	function copyToClipboard() {
-		if (!canCopy) return;
-		const textToCopy = isSecret && isVerified ? actualSecret : (isLink ? url : value);
+		if (!canCopy || !isVerified) return;
+		const textToCopy = isSecret ? actualSecret : (isLink ? url : value);
 		navigator.clipboard.writeText(textToCopy);
 		copied = true;
 		setTimeout(() => copied = false, 2000);
@@ -44,13 +46,22 @@
 		{#if isLink}
 			<a href={url} target="_blank" class="text-vscode-green no-underline hover:underline">'{value}'</a>
 		{:else if isSecret}
-			<Syntax type="green">'{isVerified ? actualSecret : value}'</Syntax>
+			{#if isVerified}
+				<Syntax type="green" class="transition-all duration-500">'{actualSecret}'</Syntax>
+			{:else}
+				<button 
+					onclick={onReveal}
+					class="text-vscode-green italic cursor-pointer hover:bg-white/5 px-1 rounded transition-colors"
+				>
+					'tap to reveal'
+				</button>
+			{/if}
 		{:else}
 			<Syntax type="green">'{value}'</Syntax>
 		{/if}{#if !isLast},{/if}
 	</div>
 	
-	{#if canCopy}
+	{#if canCopy && (!isSecret || isVerified)}
 		<button 
 			onclick={copyToClipboard}
 			class="opacity-0 group-hover:opacity-100 transition-all duration-300 p-1 hover:bg-white/10 rounded cursor-pointer md:opacity-0 touch-device:opacity-100"
@@ -66,7 +77,6 @@
 </div>
 
 <style>
-	/* Ensure visibility on devices that don't support hover */
 	@media (hover: none) {
 		button {
 			opacity: 1 !important;
