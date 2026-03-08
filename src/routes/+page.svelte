@@ -76,7 +76,7 @@
 		onclick={startTyping}
 		class="relative w-full max-w-lg transition-all duration-500 ease-out"
 	>
-		<div class="backdrop-blur-md bg-white/5 border border-white/10 rounded-xl shadow-2xl p-6 font-mono text-sm text-white overflow-hidden">
+		<div class="backdrop-blur-md bg-white/5 border border-white/10 rounded-xl shadow-2xl p-6 font-mono text-lg text-white overflow-hidden">
 			<CardFace 
 				{stage} 
 				{displayedHtml} 
