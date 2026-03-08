@@ -1,6 +1,12 @@
 <script lang="ts">
 	import CardFace from '$lib/components/CardFace.svelte';
 	import { dev } from '$app/environment';
+	import gsap from 'gsap';
+	import { TextPlugin } from 'gsap/dist/TextPlugin';
+
+	if (typeof window !== 'undefined') {
+		gsap.registerPlugin(TextPlugin);
+	}
 
 	// Stage 0: waiting, 1: typing, 2: done
 	let stage = $state(0);
@@ -14,8 +20,18 @@
 	let startTime = 0;
 	let renderTime = $state(0);
 
-	const emailValue = 'jose.lazo.vargas@gmail.com';
-	const phoneValue = '+51 0491 620 025';
+	// Unified configuration to avoid duplication
+	const contactInfo = {
+		name: 'Jose Lazo',
+		github: '@joselazovargas',
+		githubUrl: 'https://github.com/joselazovargas',
+		linkedin: '@jose-lazo-ict',
+		linkedinUrl: 'https://www.linkedin.com/in/jose-lazo-ict/',
+		email: 'jose.lazo.vargas@gmail.com',
+		phone: '+61 0491 620025',
+		job: 'BLACK6',
+		jobUrl: 'https://black6.com'
+	};
 
 	// Invisible "No User Interaction" Captcha
 	function verifyHuman() {
@@ -24,19 +40,28 @@
 		}
 	}
 
-	// Syntax-colored tokens for your contact block
-	const tokens = [
-		`<span class="text-vscode-purple">const</span>`, ' ', `<span class="text-vscode-cyan">aboutMe</span>`, ' ', `= `, '{', '\n  ',
-		`<span class="text-vscode-red">name</span>`, ': ', `<span class="text-vscode-green">'Jose Lazo'</span>`, ',', '\n  ',
-		`<span class="text-vscode-red">github</span>`, ': ', `<span class="text-vscode-green">'@joselazovargas'</span>`, ',', '\n  ',
-		`<span class="text-vscode-red">linkedin</span>`, ': ', `<span class="text-vscode-green">'@jose-lazo-ict'</span>`, ',', '\n  ',
-		`<span class="text-vscode-red">email</span>`, ': ', `<span class="text-vscode-green">'${emailValue}'</span>`, ',', '\n  ',
-		`<span class="text-vscode-red">phone</span>`, ': ', `<span class="text-vscode-green">'${phoneValue}'</span>`, ',', '\n  ',
-		...(dev ? [`<span class="text-vscode-red">myWork</span>`, ': ', `[]`, ',', '\n  '] : []),
-		`<span class="text-vscode-purple">const</span>`, ' ', `<span class="text-vscode-cyan">statsForNerds</span>`, ' ', `= `, '{', ' ... ', '};'
+	// Generate animation tokens from the config
+	const codeLines = [
+		{ type: 'purple', text: 'const' }, { type: 'white', text: ' ' }, { type: 'cyan', text: 'aboutMe' }, { type: 'white', text: ' = {' }, { type: 'white', text: '\n  ' },
+		{ type: 'red', text: 'name' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.name}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
+		{ type: 'red', text: 'github' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.github}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
+		{ type: 'red', text: 'linkedin' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.linkedin}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
+		{ type: 'red', text: 'email' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.email}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
+		{ type: 'red', text: 'phone' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.phone}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
+		...(dev ? [{ type: 'red', text: 'myWork' }, { type: 'white', text: ': ' }, { type: 'white', text: '[]' }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' }] : []),
+		{ type: 'red', text: 'readMore' }, { type: 'white', text: ': { ' }, { type: 'red', text: 'job' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.job}'` }, { type: 'white', text: ' }' }, { type: 'white', text: '\n' },
+		{ type: 'white', text: '};' }, { type: 'white', text: '\n\n' },
+		{ type: 'purple', text: 'const' }, { type: 'white', text: ' ' }, { type: 'cyan', text: 'statsForNerds' }, { type: 'white', text: ' = { ... };' }
 	];
 
-	// A single function to start the animation
+	const colorMap: Record<string, string> = {
+		purple: 'text-vscode-purple',
+		cyan: 'text-vscode-cyan',
+		red: 'text-vscode-red',
+		green: 'text-vscode-green',
+		white: 'text-white'
+	};
+
 	function startTyping(e: KeyboardEvent | MouseEvent) {
 		if (stage !== 0) return;
 		if (e instanceof KeyboardEvent && ['Shift', 'Control', 'Alt', 'Meta'].includes(e.key)) {
@@ -44,27 +69,35 @@
 		}
 		startTime = performance.now();
 		stage = 1;
+		runGsapAnimation();
 	}
 
-	// This side effect runs automatically when `stage` becomes 1
-	$effect(() => {
-		if (stage !== 1) return;
-
-		let i = 0;
-		const interval = setInterval(() => {
-			displayedHtml += tokens[i++];
-			if (i === tokens.length) {
-				clearInterval(interval);
+	function runGsapAnimation() {
+		const tl = gsap.timeline({
+			onComplete: () => {
 				renderTime = Math.round(performance.now() - startTime);
 				stage = 2;
 				setTimeout(verifyHuman, 500);
 			}
-		}, 60);
+		});
 
-		return () => {
-			clearInterval(interval);
-		};
-	});
+		let currentHtml = '';
+		codeLines.forEach((line) => {
+			const spanClass = colorMap[line.type] || 'text-white';
+			const chars = line.text.split('');
+			
+			chars.forEach((char) => {
+				tl.to({}, {
+					duration: 0.02,
+					onStart: () => {
+						const escapedChar = char === '\n' ? '\n' : (char === ' ' ? ' ' : char);
+						currentHtml += `<span class="${spanClass}">${escapedChar}</span>`;
+						displayedHtml = currentHtml;
+					}
+				});
+			});
+		});
+	}
 </script>
 
 <svelte:window on:keydown={startTyping} on:mousemove={verifyHuman} on:touchstart={verifyHuman} />
@@ -80,8 +113,7 @@
 				{displayedHtml} 
 				{isVerified} 
 				{statsExpanded} 
-				{emailValue} 
-				{phoneValue}
+				{contactInfo}
 				{renderTime}
 				onExpandStats={() => statsExpanded = true} 
 			/>

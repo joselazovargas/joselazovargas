@@ -8,8 +8,17 @@
 		displayedHtml: string;
 		isVerified: boolean;
 		statsExpanded: boolean;
-		emailValue: string;
-		phoneValue: string;
+		contactInfo: {
+			name: string;
+			github: string;
+			githubUrl: string;
+			linkedin: string;
+			linkedinUrl: string;
+			email: string;
+			phone: string;
+			job: string;
+			jobUrl: string;
+		};
 		renderTime: number;
 		onExpandStats: () => void;
 	}
@@ -19,8 +28,7 @@
 		displayedHtml, 
 		isVerified, 
 		statsExpanded, 
-		emailValue, 
-		phoneValue, 
+		contactInfo,
 		renderTime, 
 		onExpandStats
 	}: Props = $props();
@@ -40,21 +48,21 @@
 			<Syntax type="purple">const</Syntax> <Syntax type="cyan">aboutMe</Syntax> = {'{' }
 		</div>
 		
-		<CodeProperty name="name" value="Jose Lazo" />
-		<CodeProperty name="github" value="@joselazovargas" isLink url="https://github.com/joselazovargas" />
-		<CodeProperty name="linkedin" value="@jose-lazo-ict" isLink url="https://www.linkedin.com/in/jose-lazo-ict/" />
-		<CodeProperty name="email" value={emailValue} canCopy type="email" />
-		<CodeProperty name="phone" value={phoneValue} canCopy type="phone" />
+		<CodeProperty name="name" value={contactInfo.name} />
+		<CodeProperty name="github" value={contactInfo.github} isLink url={contactInfo.githubUrl} />
+		<CodeProperty name="linkedin" value={contactInfo.linkedin} isLink url={contactInfo.linkedinUrl} />
+		<CodeProperty name="email" value={contactInfo.email} canCopy type="email" />
+		<CodeProperty name="phone" value={contactInfo.phone} canCopy type="phone" />
 		
 		{#if dev}
 			<CodeProperty name="myWork" value="[]" />
 		{/if}
 		
-		<!-- <div class="flex items-center gap-2 pl-[1rem]">
+		<div class="flex items-center gap-2 pl-[1rem]">
 			<Syntax type="red">readMore</Syntax>: {'{ '} 
-			<CodeProperty name="job" value="BLACK6" isLink url="https://black6.com" indent={0} isLast />
+			<CodeProperty name="job" value={contactInfo.job} isLink url={contactInfo.jobUrl} indent={0} isLast />
 			{' }'}
-		</div> -->
+		</div>
 		
 		<div>{'};'}</div>
 		<div class="h-4"></div>
