@@ -6,13 +6,10 @@
 		value: string;
 		isLink?: boolean;
 		url?: string;
-		isSecret?: boolean;
-		isVerified?: boolean;
-		actualSecret?: string;
 		isLast?: boolean;
 		indent?: number;
 		canCopy?: boolean;
-		onReveal?: () => void;
+		type?: 'email' | 'phone' | 'default';
 	}
 
 	let { 
@@ -20,48 +17,72 @@
 		value, 
 		isLink = false, 
 		url = '', 
-		isSecret = false, 
-		isVerified = false, 
-		actualSecret = '',
 		isLast = false,
 		indent = 1,
 		canCopy = false,
-		onReveal
+		type = 'default'
 	}: Props = $props();
 
 	let copied = $state(false);
+	let showOptions = $state(false);
 
-	function copyToClipboard() {
-		if (!canCopy || !isVerified) return;
-		const textToCopy = isSecret ? actualSecret : (isLink ? url : value);
+	function copyToClipboard(e: MouseEvent) {
+		e.stopPropagation();
+		if (!canCopy) return;
+		const textToCopy = isLink ? url : value;
 		navigator.clipboard.writeText(textToCopy);
 		copied = true;
 		setTimeout(() => copied = false, 2000);
 	}
+
+	function handleAction(action: string) {
+		if (action === 'email') {
+			window.location.href = `mailto:${value}`;
+		} else if (action === 'call') {
+			window.location.href = `tel:${value.replace(/\s/g, '')}`;
+		} else if (action === 'whatsapp') {
+			const cleanPhone = value.replace(/[^\d]/g, '');
+			window.open(`https://wa.me/${cleanPhone}`, '_blank');
+		}
+		showOptions = false;
+	}
 </script>
 
 <div class="group flex items-center gap-2" style="padding-left: {indent * 1}rem;">
-	<div class="flex-shrink-0">
+	<div class="flex-shrink-0 flex items-center">
 		<Syntax type="red">{name}</Syntax>: 
-		{#if isLink}
-			<a href={url} target="_blank" class="text-vscode-green no-underline hover:underline">'{value}'</a>
-		{:else if isSecret}
-			{#if isVerified}
-				<Syntax type="green" class="transition-all duration-500">'{actualSecret}'</Syntax>
-			{:else}
-				<button 
-					onclick={onReveal}
-					class="text-vscode-green italic cursor-pointer hover:bg-white/5 px-1 rounded transition-colors"
-				>
-					'tap to reveal'
-				</button>
-			{/if}
+		
+		{#if showOptions}
+			<div class="flex items-center gap-1 ml-1 text-lg">
+				<Syntax type="gray">[</Syntax>
+				{#if type === 'email'}
+					<button onclick={() => handleAction('email')} class="text-vscode-cyan hover:underline cursor-pointer">send email?</button>
+				{:else if type === 'phone'}
+					<button onclick={() => handleAction('call')} class="text-vscode-cyan hover:underline cursor-pointer">call</button>
+					<Syntax type="gray">|</Syntax>
+					<button onclick={() => handleAction('whatsapp')} class="text-vscode-cyan hover:underline cursor-pointer">whatsapp</button>
+				{/if}
+				<Syntax type="gray">|</Syntax>
+				<button onclick={() => showOptions = false} class="text-vscode-red hover:underline cursor-pointer">cancel</button>
+				<Syntax type="gray">]</Syntax>
+			</div>
 		{:else}
-			<Syntax type="green">'{value}'</Syntax>
-		{/if}{#if !isLast},{/if}
+			<button 
+				onclick={() => type !== 'default' ? showOptions = true : null}
+				class="{type !== 'default' ? 'cursor-pointer hover:bg-white/5 rounded px-1 transition-colors' : ''}"
+			>
+				{#if isLink}
+					<a href={url} target="_blank" onclick={(e) => e.stopPropagation()} class="text-vscode-green no-underline hover:underline">'{value}'</a>
+				{:else}
+					<Syntax type="green">'{value}'</Syntax>
+				{/if}
+			</button>
+		{/if}
+		
+		{#if !isLast && !showOptions}<Syntax type="white">,</Syntax>{/if}
 	</div>
 	
-	{#if canCopy && (!isSecret || isVerified)}
+	{#if canCopy && !showOptions}
 		<button 
 			onclick={copyToClipboard}
 			class="opacity-0 group-hover:opacity-100 transition-all duration-300 p-1 hover:bg-white/10 rounded cursor-pointer md:opacity-0 touch-device:opacity-100"

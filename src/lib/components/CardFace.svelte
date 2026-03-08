@@ -43,18 +43,18 @@
 		<CodeProperty name="name" value="Jose Lazo" />
 		<CodeProperty name="github" value="@joselazovargas" isLink url="https://github.com/joselazovargas" />
 		<CodeProperty name="linkedin" value="@jose-lazo-ict" isLink url="https://www.linkedin.com/in/jose-lazo-ict/" />
-		<CodeProperty name="email" value={emailValue} canCopy />
-		<CodeProperty name="phone" value={phoneValue} canCopy />
+		<CodeProperty name="email" value={emailValue} canCopy type="email" />
+		<CodeProperty name="phone" value={phoneValue} canCopy type="phone" />
 		
 		{#if dev}
 			<CodeProperty name="myWork" value="[]" />
 		{/if}
 		
-		<!-- <div class="flex items-center gap-2 pl-[1rem]">
+		<div class="flex items-center gap-2 pl-[1rem]">
 			<Syntax type="red">readMore</Syntax>: {'{ '} 
 			<CodeProperty name="job" value="BLACK6" isLink url="https://black6.com" indent={0} isLast />
 			{' }'}
-		</div> -->
+		</div>
 		
 		<div>{'};'}</div>
 		<div class="h-4"></div>
@@ -68,6 +68,7 @@
 		</div>
 		
 		{#if statsExpanded}
+			<CodeProperty name="coffee" value="infinity" />
 			<CodeProperty name="renderTime" value="{renderTime}ms" />
 			<CodeProperty name="captcha" value="{isVerified ? 'passed' : 'waiting...'}" isLast />
 			<div>{'};'}</div>
