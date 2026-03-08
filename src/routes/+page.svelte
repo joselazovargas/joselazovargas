@@ -33,8 +33,6 @@
 		`<span class="text-vscode-red">email</span>`, ': ', `<span class="text-vscode-green">'${emailValue}'</span>`, ',', '\n  ',
 		`<span class="text-vscode-red">phone</span>`, ': ', `<span class="text-vscode-green">'${phoneValue}'</span>`, ',', '\n  ',
 		...(dev ? [`<span class="text-vscode-red">myWork</span>`, ': ', `[]`, ',', '\n  '] : []),
-		`<span class="text-vscode-red">readMore</span>`, ': ', '{ ', `<span class="text-vscode-red">job</span>`, ': ', `<span class="text-vscode-green">'BLACK6'</span>`, ' }', '\n',
-		'};', '\n\n',
 		`<span class="text-vscode-purple">const</span>`, ' ', `<span class="text-vscode-cyan">statsForNerds</span>`, ' ', `= `, '{', ' ... ', '};'
 	];
 
