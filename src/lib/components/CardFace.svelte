@@ -50,11 +50,11 @@
 			<CodeProperty name="myWork" value="[]" />
 		{/if}
 		
-		<div class="flex items-center gap-2 pl-[1rem]">
+		<!-- <div class="flex items-center gap-2 pl-[1rem]">
 			<Syntax type="red">readMore</Syntax>: {'{ '} 
 			<CodeProperty name="job" value="BLACK6" isLink url="https://black6.com" indent={0} isLast />
 			{' }'}
-		</div>
+		</div> -->
 		
 		<div>{'};'}</div>
 		<div class="h-4"></div>
