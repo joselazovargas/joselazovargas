@@ -28,6 +28,7 @@
 		`<span class="text-vscode-red">github</span>`, ': ', `<span class="text-vscode-green">'@joselazovargas'</span>`, ',', '\n  ',
 		`<span class="text-vscode-red">linkedin</span>`, ': ', `<span class="text-vscode-green">'@jose-lazo-ict'</span>`, ',', '\n  ',
 		`<span class="text-vscode-red">email</span>`, ': ', `<span class="text-vscode-green">'[hidden]'</span>`, ',', '\n  ',
+		`<span class="text-vscode-red">phone</span>`, ': ', `<span class="text-vscode-green">'[hidden]'</span>`, ',', '\n  ',
 		...(dev ? [`<span class="text-vscode-red">myWork</span>`, ': ', `[]`, ',', '\n  '] : []),
 		`<span class="text-vscode-red">readMore</span>`, ': ', '{ ', `<span class="text-vscode-red">job</span>`, ': ', `<span class="text-vscode-green">'BLACK6'</span>`, ' }', '\n',
 		'};', '\n\n',
@@ -62,17 +63,17 @@
 	});
 
 	const emailValue = 'jose@black6.com';
+	const phoneValue = '+506 8708 0995';
 </script>
 
 <svelte:window on:keydown={startTyping} />
 
 <div class="flex items-center justify-center w-full h-[100svh] bg-gray-900 p-5">
-	<div class="relative w-[422px] h-[450px] overflow-hidden rounded-lg" style="perspective:600px;">
+	<div class="relative w-[622px] h-[602px] overflow-hidden rounded-lg" style="perspective:600px;">
 		<div
 			onclick={startTyping}
 			onmousemove={handleMouseMove}
 			class="card absolute inset-0 cursor-default transition-transform duration-500 ease-out will-change-transform"
-			style="transform-style: preserve-3d; --light-x:50%; --light-y:50%;"
 		>
 			<div class="light"></div>
 			<CardFace 
@@ -81,6 +82,7 @@
 				{isVerified} 
 				{statsExpanded} 
 				{emailValue} 
+				{phoneValue}
 				onExpandStats={() => statsExpanded = true} 
 			/>
 		</div>
