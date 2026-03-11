@@ -23,7 +23,7 @@
 </script>
 
 <div class="min-h-screen bg-gray-900 text-white font-mono p-4 md:p-12 flex flex-col items-center">
-	<div class="w-full max-w-4xl" style="view-transition-name: experiment-container;">
+	<div class="w-full max-w-4xl">
 		<a href="/" class="text-vscode-purple hover:underline mb-8 inline-block">← cd /home</a>
 
 		<div class="mb-4 flex items-center gap-2 text-lg">
@@ -35,7 +35,7 @@
 			</span> = () => {' {'}
 		</div>
 
-		<div class="pl-4 md:pl-8 border-l border-white/10 ml-2 space-y-8">
+		<div class="pl-4 md:pl-8 border-l border-white/10 ml-2 space-y-8" style="view-transition-name: experiment-body;">
 			<div class="w-full max-w-md backdrop-blur-md bg-white/5 border border-white/10 rounded-xl p-8 shadow-2xl">
 				<div class="space-y-6">
 					<div class="flex flex-col gap-2">

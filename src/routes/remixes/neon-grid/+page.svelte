@@ -88,7 +88,7 @@
 </script>
 
 <div class="min-h-screen bg-black text-white font-mono p-4 md:p-12 flex flex-col items-center overflow-x-hidden">
-	<div class="w-full max-w-6xl z-10" style="view-transition-name: experiment-container;">
+	<div class="w-full max-w-6xl z-10">
 		<a href="/" class="text-vscode-purple hover:underline mb-8 inline-block">← cd /home</a>
 		
 		<div class="mb-4 flex items-center gap-2 text-lg">
@@ -100,7 +100,7 @@
 			</span> = () => {' {'}
 		</div>
 
-		<div class="pl-4 md:pl-8 border-l border-white/10 ml-2 space-y-8 relative min-h-[600px]">
+		<div class="pl-4 md:pl-8 border-l border-white/10 ml-2 space-y-8 relative min-h-[600px]" style="view-transition-name: experiment-body;">
 			<div class="absolute inset-0 z-0 opacity-80 rounded-xl overflow-hidden border border-white/10 shadow-2xl">
 				<canvas bind:this={canvas} class="w-full h-full"></canvas>
 			</div>

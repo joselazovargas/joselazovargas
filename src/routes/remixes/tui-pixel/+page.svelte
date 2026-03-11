@@ -36,7 +36,7 @@
 </script>
 
 <div class="min-h-screen bg-black text-[#00ff00] font-mono p-4 md:p-12 flex flex-col items-center">
-	<div class="w-full max-w-4xl" style="view-transition-name: experiment-container;">
+	<div class="w-full max-w-4xl">
 		<a href="/" class="text-[#00ff00] hover:underline mb-8 inline-block">← cd /home</a>
 		
 		<div class="mb-4 flex items-center gap-2 text-lg">
@@ -48,7 +48,7 @@
 			</span> = () => {' {'}
 		</div>
 
-		<div class="pl-4 md:pl-8 border-l border-[#00ff00]/20 ml-2 space-y-8">
+		<div class="pl-4 md:pl-8 border-l border-[#00ff00]/20 ml-2 space-y-8" style="view-transition-name: experiment-body;">
 			<div class="w-full max-w-2xl border-2 border-[#00ff00] bg-black p-6 shadow-[0_0_20px_#00ff0033] relative">
 				<!-- Scanline effect -->
 				<div class="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] z-10"></div>

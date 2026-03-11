@@ -21,17 +21,22 @@
 </div>
 
 <style>
-	:global(::view-transition-old(root)) {
-		animation: 200ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
-	}
+	/* Remove global flash by disabling root cross-fade */
+	:global(::view-transition-old(root)),
 	:global(::view-transition-new(root)) {
-		animation: 300ms cubic-bezier(0, 0, 0.2, 1) 100ms both fade-in;
+		animation: none;
+		mix-blend-mode: normal;
+	}
+
+	/* Morphing elements (remix names) use browser default (smooth move + cross-fade) */
+	
+	/* Experiment content fades in only after the title reaches destination */
+	:global(::view-transition-new(experiment-body)) {
+		animation: 400ms cubic-bezier(0, 0, 0.2, 1) 300ms both fade-in;
 	}
 
 	@keyframes fade-in {
 		from { opacity: 0; }
-	}
-	@keyframes fade-out {
-		to { opacity: 0; }
+		to { opacity: 1; }
 	}
 </style>
