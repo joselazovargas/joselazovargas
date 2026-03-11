@@ -71,7 +71,7 @@
 						<Syntax type="green">'{remix.name}'</Syntax>
 					</a>
 					<!-- LSP Tooltip -->
-					<div class="opacity-0 group-hover:opacity-100 pointer-events-none absolute left-0 -top-10 z-50 transition-opacity duration-200">
+					<div class="opacity-0 group-hover:opacity-100 pointer-events-none absolute left-0 -top-20 z-50 transition-opacity duration-200">
 						<div class="bg-[#252526] border border-[#454545] px-3 py-1.5 rounded shadow-xl text-md whitespace-nowrap">
 							<span class="text-vscode-purple">function</span> <span class="text-vscode-cyan">{remix.name.replace('()', '')}</span>(): <span class="text-vscode-blue">void</span>
 							<div class="mt-1 text-gray-400 italic">"{remix.label}"</div>
