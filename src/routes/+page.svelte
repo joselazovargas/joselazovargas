@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CardFace from '$lib/components/CardFace.svelte';
 	import { dev } from '$app/environment';
+	import { onMount } from 'svelte';
 	import gsap from 'gsap';
 	import { TextPlugin } from 'gsap/dist/TextPlugin';
 
@@ -19,6 +20,13 @@
 	// Stats for Nerds data
 	let startTime = 0;
 	let renderTime = $state(0);
+
+	onMount(() => {
+		if (localStorage.getItem('typing_animation_done')) {
+			stage = 2;
+			isVerified = true;
+		}
+	});
 
 	// Unified configuration to avoid duplication
 	const contactInfo = {
@@ -90,6 +98,7 @@
 			onComplete: () => {
 				renderTime = Math.round(performance.now() - startTime);
 				stage = 2;
+				localStorage.setItem('typing_animation_done', 'true');
 				setTimeout(verifyHuman, 500);
 			}
 		});
