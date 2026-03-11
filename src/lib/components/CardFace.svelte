@@ -19,6 +19,7 @@
 			job: string;
 			jobUrl: string;
 		};
+		remixes: Array<{ name: string; url: string }>;
 		renderTime: number;
 		onExpandStats: () => void;
 	}
@@ -29,12 +30,13 @@
 		isVerified, 
 		statsExpanded, 
 		contactInfo,
+		remixes,
 		renderTime, 
 		onExpandStats
 	}: Props = $props();
 </script>
 
-<div class="card-content w-full h-full min-h-[150px] flex flex-col justify-center">
+<div class="card-content w-full h-full min-h-[150px] flex flex-col justify-center" style="view-transition-name: main-card;">
 {#if stage === 0}
 	<div class="flex items-center justify-center py-8">
 		<Syntax type="gray">Press any key to continue...</Syntax>
@@ -54,13 +56,24 @@
 		<CodeProperty name="email" value={contactInfo.email} canCopy type="email" />
 		<CodeProperty name="phone" value={contactInfo.phone} canCopy type="phone" />
 		
-		<div class="flex flex-col pl-[1rem]">
-			<div><Syntax type="red">remixes</Syntax>: [</div>
-			<div class="pl-[1rem]"><a href="/remixes/webgl-techno" class="text-vscode-green no-underline hover:underline hover:bg-white/5 rounded px-1 transition-colors">'WebGL shader unreal effects'</a>,</div>
-			<div class="pl-[1rem]"><a href="/remixes/neon-grid" class="text-vscode-green no-underline hover:underline hover:bg-white/5 rounded px-1 transition-colors">'Neon Grid Matrix'</a>,</div>
-			<div class="pl-[1rem]"><a href="/remixes/tui-pixel" class="text-vscode-green no-underline hover:underline hover:bg-white/5 rounded px-1 transition-colors">'pixel style TUI animations'</a>,</div>
-			<div class="pl-[1rem]"><a href="/remixes/qr-generator" class="text-vscode-green no-underline hover:underline hover:bg-white/5 rounded px-1 transition-colors">'QR generator'</a></div>
-			<div>],</div>
+		<div class="flex items-center gap-2 pl-[1rem]">
+			<Syntax type="red">remixes</Syntax>: <Syntax type="white">[</Syntax>
+		</div>
+		
+		{#each remixes as remix, i}
+			<div class="pl-[2rem] flex items-center">
+				<a 
+					href={remix.url} 
+					class="text-vscode-green no-underline hover:underline hover:bg-white/5 rounded px-1 transition-colors"
+					style="view-transition-name: remix-{remix.url.split('/').pop()};"
+				>
+					<Syntax type="green">'{remix.name}'</Syntax>
+				</a>{#if i < remixes.length - 1}<Syntax type="white">,</Syntax>{/if}
+			</div>
+		{/each}
+		
+		<div class="pl-[1rem] flex items-center">
+			<Syntax type="white">],</Syntax>
 		</div>
 		
 		{#if dev}

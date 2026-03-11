@@ -88,14 +88,16 @@
 </script>
 
 <div class="min-h-screen bg-black text-white font-mono p-4 md:p-12 flex flex-col items-center overflow-x-hidden">
-	<div class="w-full max-w-6xl z-10">
+	<div class="w-full max-w-6xl z-10" style="view-transition-name: experiment-container;">
 		<a href="/" class="text-vscode-purple hover:underline mb-8 inline-block">← cd /home</a>
 		
 		<div class="mb-4 flex items-center gap-2 text-lg">
 			<Syntax type="purple">export</Syntax> 
 			<Syntax type="purple">default</Syntax> 
 			<Syntax type="purple">const</Syntax> 
-			<Syntax type="cyan">NeonGridMatrix</Syntax> = () => {' {'}
+			<span style="view-transition-name: remix-neon-grid;">
+				<Syntax type="cyan">NeonGridMatrix</Syntax>
+			</span> = () => {' {'}
 		</div>
 
 		<div class="pl-4 md:pl-8 border-l border-white/10 ml-2 space-y-8 relative min-h-[600px]">

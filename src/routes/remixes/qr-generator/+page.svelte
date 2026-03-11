@@ -23,14 +23,16 @@
 </script>
 
 <div class="min-h-screen bg-gray-900 text-white font-mono p-4 md:p-12 flex flex-col items-center">
-	<div class="w-full max-w-4xl">
+	<div class="w-full max-w-4xl" style="view-transition-name: experiment-container;">
 		<a href="/" class="text-vscode-purple hover:underline mb-8 inline-block">← cd /home</a>
-		
+
 		<div class="mb-4 flex items-center gap-2 text-lg">
 			<Syntax type="purple">export</Syntax> 
 			<Syntax type="purple">default</Syntax> 
 			<Syntax type="purple">const</Syntax> 
-			<Syntax type="cyan">QRGenerator</Syntax> = () => {' {'}
+			<span style="view-transition-name: remix-qr-generator;">
+				<Syntax type="cyan">QRGenerator</Syntax>
+			</span> = () => {' {'}
 		</div>
 
 		<div class="pl-4 md:pl-8 border-l border-white/10 ml-2 space-y-8">

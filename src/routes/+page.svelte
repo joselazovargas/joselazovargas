@@ -33,6 +33,13 @@
 		jobUrl: 'https://black6.com'
 	};
 
+	const remixes = [
+		{ name: 'WebGL shader unreal effects', url: '/remixes/webgl-techno' },
+		{ name: 'Neon Grid Matrix', url: '/remixes/neon-grid' },
+		{ name: 'pixel style TUI animations', url: '/remixes/tui-pixel' },
+		{ name: 'QR generator', url: '/remixes/qr-generator' }
+	];
+
 	// Invisible "No User Interaction" Captcha
 	function verifyHuman() {
 		if (!isVerified) {
@@ -49,11 +56,11 @@
 		{ type: 'red', text: 'email' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.email}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
 		{ type: 'red', text: 'phone' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.phone}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
 		{ type: 'red', text: 'remixes' }, { type: 'white', text: ': [' }, { type: 'white', text: '\n    ' },
-		{ type: 'green', text: "'WebGL shader unreal effects'" }, { type: 'white', text: ', ' },
-		{ type: 'green', text: "'Neon Grid Matrix'" }, { type: 'white', text: ', ' },
-		{ type: 'green', text: "'pixel style TUI animations'" }, { type: 'white', text: ', ' },
-		{ type: 'green', text: "'QR generator'" }, { type: 'white', text: '\n  ' },
-		{ type: 'white', text: ']' }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
+		...remixes.flatMap((r, i) => [
+			{ type: 'green', text: `'${r.name}'` },
+			...(i < remixes.length - 1 ? [{ type: 'white', text: ', ' }] : [])
+		]),
+		{ type: 'white', text: '\n  ' }, { type: 'white', text: ']' }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
 		...(dev ? [{ type: 'red', text: 'myWork' }, { type: 'white', text: ': ' }, { type: 'white', text: '[]' }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' }] : []),
 		{ type: 'red', text: 'readMore' }, { type: 'white', text: ': { ' }, { type: 'red', text: 'job' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.job}'` }, { type: 'white', text: ' }' }, { type: 'white', text: '\n' },
 		{ type: 'white', text: '};' }, { type: 'white', text: '\n\n' },
@@ -120,6 +127,7 @@
 				{isVerified} 
 				{statsExpanded} 
 				{contactInfo}
+				{remixes}
 				{renderTime}
 				onExpandStats={() => statsExpanded = true} 
 			/>

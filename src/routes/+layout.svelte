@@ -21,9 +21,17 @@
 </div>
 
 <style>
-	:global(::view-transition-old(root)),
+	:global(::view-transition-old(root)) {
+		animation: 200ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
+	}
 	:global(::view-transition-new(root)) {
-		animation-duration: 0.4s;
-		animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		animation: 300ms cubic-bezier(0, 0, 0.2, 1) 100ms both fade-in;
+	}
+
+	@keyframes fade-in {
+		from { opacity: 0; }
+	}
+	@keyframes fade-out {
+		to { opacity: 0; }
 	}
 </style>

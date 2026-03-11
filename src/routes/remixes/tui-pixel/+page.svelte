@@ -36,14 +36,16 @@
 </script>
 
 <div class="min-h-screen bg-black text-[#00ff00] font-mono p-4 md:p-12 flex flex-col items-center">
-	<div class="w-full max-w-4xl">
+	<div class="w-full max-w-4xl" style="view-transition-name: experiment-container;">
 		<a href="/" class="text-[#00ff00] hover:underline mb-8 inline-block">← cd /home</a>
 		
 		<div class="mb-4 flex items-center gap-2 text-lg">
-			<span class="text-vscode-purple">export</span> 
-			<span class="text-vscode-purple">default</span> 
-			<span class="text-vscode-purple">const</span> 
-			<span class="text-vscode-cyan">TUIPixelAnimation</span> = () => {' {'}
+			<Syntax type="purple">export</Syntax> 
+			<Syntax type="purple">default</Syntax> 
+			<Syntax type="purple">const</Syntax> 
+			<span style="view-transition-name: remix-tui-pixel;">
+				<Syntax type="cyan">TUIPixelAnimation</Syntax>
+			</span> = () => {' {'}
 		</div>
 
 		<div class="pl-4 md:pl-8 border-l border-[#00ff00]/20 ml-2 space-y-8">
