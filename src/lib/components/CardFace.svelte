@@ -19,7 +19,7 @@
 			job: string;
 			jobUrl: string;
 		};
-		remixes: Array<{ name: string; url: string }>;
+		remixes: Array<{ name: string; label: string; url: string }>;
 		renderTime: number;
 		onExpandStats: () => void;
 	}
@@ -62,23 +62,29 @@
 		
 		{#each remixes as remix, i}
 			<div class="pl-[2rem] flex items-center">
-				<a 
-					href={remix.url} 
-					class="text-vscode-green no-underline hover:underline hover:bg-white/5 rounded px-1 transition-colors"
-					style="view-transition-name: remix-{remix.url.split('/').pop()};"
-				>
-					<Syntax type="green">'{remix.name}'</Syntax>
-				</a>{#if i < remixes.length - 1}<Syntax type="white">,</Syntax>{/if}
+				<div class="group relative">
+					<a 
+						href={remix.url} 
+						class="text-vscode-green no-underline hover:underline hover:bg-white/5 rounded px-1 transition-colors block"
+						style="view-transition-name: remix-{remix.url.split('/').pop()};"
+					>
+						<Syntax type="green">'{remix.name}'</Syntax>
+					</a>
+					<!-- LSP Tooltip -->
+					<div class="opacity-0 group-hover:opacity-100 pointer-events-none absolute left-0 -top-10 z-50 transition-opacity duration-200">
+						<div class="bg-[#252526] border border-[#454545] px-3 py-1.5 rounded shadow-xl text-xs whitespace-nowrap">
+							<span class="text-vscode-purple">function</span> <span class="text-vscode-cyan">{remix.name.replace('()', '')}</span>(): <span class="text-vscode-blue">void</span>
+							<div class="mt-1 text-gray-400 italic">"{remix.label}"</div>
+						</div>
+					</div>
+				</div>
+				{#if i < remixes.length - 1}<Syntax type="white">,</Syntax>{/if}
 			</div>
 		{/each}
 		
 		<div class="pl-[1rem] flex items-center">
 			<Syntax type="white">],</Syntax>
 		</div>
-		
-		{#if dev}
-			<CodeProperty name="myWork" value="[]" />
-		{/if}
 		
 		<div class="flex items-center gap-2 pl-[1rem]">
 			<Syntax type="red">readMore</Syntax>: {'{ '} 

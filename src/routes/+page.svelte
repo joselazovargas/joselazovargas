@@ -42,10 +42,10 @@
 	};
 
 	const remixes = [
-		{ name: 'WebGL shader unreal effects', url: '/remixes/webgl-techno' },
-		{ name: 'Neon Grid Matrix', url: '/remixes/neon-grid' },
-		{ name: 'pixel style TUI animations', url: '/remixes/tui-pixel' },
-		{ name: 'QR generator', url: '/remixes/qr-generator' }
+		{ name: 'tripWebglShader()', label: 'Trip Web GL Shader', url: '/remixes/webgl-techno' },
+		{ name: 'neonGridMatrix()', label: 'Neon Grid Matrix', url: '/remixes/neon-grid' },
+		{ name: 'tuiPixelAnimation()', label: 'TUI Pixel Animation', url: '/remixes/tui-pixel' },
+		{ name: 'qrGenerator()', label: 'QR Generator', url: '/remixes/qr-generator' }
 	];
 
 	// Invisible "No User Interaction" Captcha
@@ -63,13 +63,13 @@
 		{ type: 'red', text: 'linkedin' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.linkedin}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
 		{ type: 'red', text: 'email' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.email}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
 		{ type: 'red', text: 'phone' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.phone}'` }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
-		{ type: 'red', text: 'remixes' }, { type: 'white', text: ': [' }, { type: 'white', text: '\n    ' },
+		{ type: 'red', text: 'remixes' }, { type: 'white', text: ': [' },
 		...remixes.flatMap((r, i) => [
+			{ type: 'white', text: '\n    ' },
 			{ type: 'green', text: `'${r.name}'` },
 			...(i < remixes.length - 1 ? [{ type: 'white', text: ', ' }] : [])
 		]),
 		{ type: 'white', text: '\n  ' }, { type: 'white', text: ']' }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' },
-		...(dev ? [{ type: 'red', text: 'myWork' }, { type: 'white', text: ': ' }, { type: 'white', text: '[]' }, { type: 'white', text: ',' }, { type: 'white', text: '\n  ' }] : []),
 		{ type: 'red', text: 'readMore' }, { type: 'white', text: ': { ' }, { type: 'red', text: 'job' }, { type: 'white', text: ': ' }, { type: 'green', text: `'${contactInfo.job}'` }, { type: 'white', text: ' }' }, { type: 'white', text: '\n' },
 		{ type: 'white', text: '};' }, { type: 'white', text: '\n\n' },
 		{ type: 'purple', text: 'const' }, { type: 'white', text: ' ' }, { type: 'cyan', text: 'statsForNerds' }, { type: 'white', text: ' = { ... };' }
